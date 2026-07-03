@@ -144,6 +144,7 @@
     position: absolute;
     top: 40%;
     left: 50%;
+    max-width: 78vw;
     transform: translate(-50%, -50%) rotate(-2deg) scale(0.8);
     background: #fffaf0;
     border: 2px solid var(--ink);
@@ -153,6 +154,7 @@
     font-weight: 700;
     font-size: 26px;
     color: var(--ink);
+    text-align: center;
     box-shadow: 0 6px 16px rgba(60,47,34,0.3);
     z-index: 7;
     opacity: 0;
@@ -162,6 +164,13 @@
   #camp-toast.show {
     opacity: 1;
     transform: translate(-50%, -50%) rotate(-2deg) scale(1);
+  }
+  #camp-toast .camp-fact {
+    font-family: 'Patrick Hand', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    opacity: 0.75;
+    margin-top: 4px;
   }
 
   #hint {
@@ -306,7 +315,8 @@
   <div id="overlay">
     <div class="card">
       <h1>🏔️ Climb K2 for Yahya</h1>
-      <p>Alternate tapping the left and right side of the screen to climb, hand over hand. Dodge falling rocks &amp; avalanches, pass Base Camp through Camp 4 and the Bottleneck, and reach the summit at 8,611m!</p>
+      <p><em>K2, 8,611m — the 2nd-highest mountain on Earth, on the Pakistan–China border. Known as "Savage Mountain," it's one of the deadliest peaks ever climbed.</em></p>
+      <p>Alternate tapping the left and right side of the screen to climb, hand over hand. Dodge falling rocks &amp; avalanches, pass Base Camp through Camp 4 and the Bottleneck, and reach the true summit at 8,611m!</p>
       <button class="btn" id="startBtn">Start Climbing</button>
     </div>
   </div>
@@ -342,13 +352,13 @@
   const SUMMIT_ALTITUDE = 8611; // K2 real height in meters
 
   const CAMPS = [
-    { alt: 5150, name: "Base Camp" },
-    { alt: 6100, name: "Camp 1" },
-    { alt: 6700, name: "Camp 2" },
-    { alt: 7350, name: "Camp 3" },
-    { alt: 7950, name: "Camp 4" },
-    { alt: 8200, name: "The Bottleneck ⚠️" },
-    { alt: SUMMIT_ALTITUDE, name: "Summit! 🇵🇰" }
+    { alt: 5150, name: "Base Camp", fact: "K2 sits on the Pakistan–China border, in the Karakoram range." },
+    { alt: 6100, name: "Camp 1", fact: "K2 is the 2nd-highest mountain on Earth, after Everest." },
+    { alt: 6700, name: "Camp 2", fact: "Climbers call it \"Savage Mountain\" — it's far deadlier than Everest." },
+    { alt: 7350, name: "Camp 3", fact: "K2 was first summited in 1954 by an Italian expedition." },
+    { alt: 7950, name: "Camp 4", fact: "This is the \"Death Zone\" — too little oxygen for the body to recover." },
+    { alt: 8200, name: "The Bottleneck ⚠️", fact: "A narrow, ice-covered gully under a huge overhanging serac — the most feared spot on the mountain." },
+    { alt: SUMMIT_ALTITUDE, name: "Summit! 🇵🇰", fact: "8,611m — the true summit of K2." }
   ];
 
   let W, H, DPR;
@@ -440,11 +450,11 @@
   }
 
   let campToastTimer = null;
-  function showCampToast(name) {
-    campToast.textContent = name;
+  function showCampToast(name, fact) {
+    campToast.innerHTML = name + (fact ? '<div class="camp-fact">' + fact + '</div>' : '');
     campToast.classList.add('show');
     clearTimeout(campToastTimer);
-    campToastTimer = setTimeout(() => campToast.classList.remove('show'), 1800);
+    campToastTimer = setTimeout(() => campToast.classList.remove('show'), 3200);
   }
 
   function tapSide(side) {
@@ -473,7 +483,8 @@
 
     // check camp crossing
     if (nextCampIdx < CAMPS.length && altitude >= CAMPS[nextCampIdx].alt) {
-      showCampToast(CAMPS[nextCampIdx].name + " — " + CAMPS[nextCampIdx].alt + "m");
+      const camp = CAMPS[nextCampIdx];
+      showCampToast(camp.name + " — " + camp.alt + "m", camp.fact);
       nextCampIdx++;
     }
   }
