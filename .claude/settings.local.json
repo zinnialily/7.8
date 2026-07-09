@@ -1,0 +1,38 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(open /Users/aanyasingh/Projects/6months/k2-climb.html)",
+      "Bash(sips -s format jpeg stormfly_sitting.HEIC --out stormfly_sitting.jpg)",
+      "Bash(sips -Z 700 -s formatOptions 70 stormfly_sitting.jpg --out stormfly_sitting_web.jpg)",
+      "Bash(python3 -c ' *)",
+      "Bash(gh auth *)",
+      "Bash(git init *)",
+      "Bash(git add *)",
+      "Bash(git restore *)",
+      "Bash(git reset *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git branch *)",
+      "Bash(git remote *)",
+      "Bash(git push *)",
+      "Read(//Users/aanyasingh/.ssh/**)",
+      "Bash(ssh -T git@github.com)",
+      "Bash(awk '{ print length, NR }' /Users/aanyasingh/Projects/6months/k2-climb.html)",
+      "Bash(sed '326d' /Users/aanyasingh/Projects/6months/k2-climb.html)",
+      "Read(//tmp/**)",
+      "Bash(python3 -)",
+      "Bash(node --check /private/tmp/claude-501/-Users-aanyasingh-Projects-6months/671ce342-7e30-4e4e-9af4-dcbf98654b7e/scratchpad/game.js)",
+      "Bash(sw_vers)",
+      "Bash(pip3 list *)",
+      "Bash(python3 -c \"import esprima\")",
+      "Bash(open -a Safari \"/Users/aanyasingh/Projects/6months/k2-climb.html\")",
+      "Bash(osascript -e 'tell application \"Safari\" to activate')",
+      "Bash(osascript -e ' *)",
+      "Bash(osascript *)",
+      "Bash(screencapture -R100,33,584,836 /private/tmp/claude-501/-Users-aanyasingh-Projects-6months/671ce342-7e30-4e4e-9af4-dcbf98654b7e/scratchpad/safari_start.png)",
+      "Bash(awk 'NR>=384' /Users/aanyasingh/Projects/6months/k2-climb.html)",
+      "Bash(awk '/<script>/{flag=1; next} /<\\\\/script>/{flag=0} flag' k2-climb.html)",
+      "Bash(node --check /tmp/k2check.js)",
+      "Bash(python3 *)"
+    ]
+  }
+}
