@@ -87,14 +87,17 @@
     display: block;
   }
 
-  #restBtn {
-    display: none;
+  #topActions {
     position: absolute;
     top: env(safe-area-inset-top, 10px);
     left: 50%;
-    transform: translateX(-50%) rotate(-2deg);
+    transform: translateX(-50%);
     margin-top: 4px;
     z-index: 6;
+    display: flex;
+    gap: 8px;
+  }
+  #restBtn, #giveUpBtn {
     background: #fff7e6;
     border: 2px dashed #b08d57;
     border-radius: 50px;
@@ -103,8 +106,16 @@
     font-size: 14px;
     color: var(--ink);
     box-shadow: 0 3px 8px rgba(60,47,34,0.2);
+    transform: rotate(-2deg);
   }
-  #restBtn:active { transform: translateX(-50%) rotate(-2deg) scale(0.95); }
+  #restBtn { display: none; }
+  #restBtn:active { transform: rotate(-2deg) scale(0.95); }
+  #giveUpBtn {
+    background: #fff0ec;
+    border-color: #b07070;
+    transform: rotate(2deg);
+  }
+  #giveUpBtn:active { transform: rotate(2deg) scale(0.95); }
 
   #jumpBtn {
     position: absolute;
@@ -343,7 +354,10 @@
     </div>
   </div>
 
-  <button id="restBtn">☕ rest</button>
+  <div id="topActions">
+    <button id="restBtn">☕ rest</button>
+    <button id="giveUpBtn">🏳️ i give up</button>
+  </div>
   <button id="jumpBtn">⬆</button>
 
   <div id="stamina-wrap"><div id="stamina-fill"></div></div>
@@ -382,6 +396,7 @@
   const startBtn = document.getElementById('startBtn');
   const resumeBtn = document.getElementById('resumeBtn');
   const restBtn = document.getElementById('restBtn');
+  const giveUpBtn = document.getElementById('giveUpBtn');
   const jumpBtn = document.getElementById('jumpBtn');
   const altitudeEl = document.getElementById('altitude');
   const bestEl = document.getElementById('best');
@@ -741,7 +756,7 @@
     setTimeout(showWinOverlay, 500);
   }
 
-  function showWinOverlay() {
+  function showWinOverlay(title) {
     overlay.classList.remove('hidden');
     overlay.innerHTML = '';
     const card = document.createElement('div');
@@ -752,13 +767,19 @@
     btn.className = 'btn';
     btn.textContent = 'Climb Again';
     btn.addEventListener('click', initGame);
-    h1.textContent = ` u reached the summit!!`;
-    p.innerHTML = 
+    h1.textContent = title || ` u reached the summit!!`;
+    p.innerHTML =
       `<span class="summit-note">"${LOVE_MESSAGE}"</span>`;
     card.appendChild(h1);
     card.appendChild(p);
     card.appendChild(btn);
     overlay.appendChild(card);
+  }
+
+  function giveUp() {
+    state = 'won';
+    restOverlay.classList.add('hidden');
+    showWinOverlay(`i give up 🏳️`);
   }
 
   // --- input ---
@@ -796,6 +817,9 @@
     if (state === 'playing' && player.grabbed && player.grabbed.type === 'camp') enterRest();
   });
   resumeBtn.addEventListener('click', exitRest);
+  giveUpBtn.addEventListener('click', () => {
+    if (state === 'playing' || state === 'resting') giveUp();
+  });
 
   function enterRest() {
     state = 'resting';

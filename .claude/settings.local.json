@@ -32,7 +32,12 @@
       "Bash(awk 'NR>=384' /Users/aanyasingh/Projects/6months/k2-climb.html)",
       "Bash(awk '/<script>/{flag=1; next} /<\\\\/script>/{flag=0} flag' k2-climb.html)",
       "Bash(node --check /tmp/k2check.js)",
-      "Bash(python3 *)"
+      "Bash(python3 *)",
+      "Bash(gh api *)",
+      "Bash(git mv *)",
+      "Bash(awk '{ print length, NR }' /Users/aanyasingh/Projects/6months/index.html)",
+      "Skill(run)",
+      "Bash(open *)"
     ]
   }
 }
